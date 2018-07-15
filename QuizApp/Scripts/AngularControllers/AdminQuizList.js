@@ -9,17 +9,17 @@ module.controller("QuizList", function ($scope, $http, $timeout) {
         $scope.AddTest = function () {
             if ($scope.NewTest === undefined) {
                 $scope.NewTest = { 'Error': "Please insert data." };
-                console.log($scope.NewTest);
+                //console.log($scope.NewTest);
                 return;
             }
             if ($scope.NewTest.Name === undefined) {
                 $scope.NewTest = { 'Error': "Please insert test name." };
-                console.log($scope.NewTest);
+                //console.log($scope.NewTest);
                 return;
             }
             if ($scope.NewTest.TestTimeLimit === undefined || $scope.NewTest.QuestionTimeLimit === undefined) {
                 $scope.NewTest = { 'Error': "Please insert correct time limit." };
-                console.log($scope.NewTest);
+                //console.log($scope.NewTest);
                 return;
             }
             var tt = new Date($scope.NewTest.TestTimeLimit);
@@ -30,7 +30,7 @@ module.controller("QuizList", function ($scope, $http, $timeout) {
             $scope.NewTest.TestTimeLimit = FormatTT;
             $scope.NewTest.QuestionTimeLimit = FormatQT;
 
-            console.log($scope.NewTest);
+            //console.log($scope.NewTest);
             $http.post("/Apilike/CreateTest", $scope.NewTest).then(function () {
                 $scope.Quiz.push($scope.NewTest);
                 $scope.NewTest = null;
@@ -98,7 +98,7 @@ module.controller("QuizList", function ($scope, $http, $timeout) {
                 'QuestionTimeLimit': FormatQT,
                 'Guid': test.Guid
             };
-            console.log(SendData);
+            //console.log(SendData);
             $http.post("/Apilike/UpdateTest", SendData).then(function () {
                 UpdateData();
             });
@@ -119,6 +119,7 @@ module.controller("QuizList", function ($scope, $http, $timeout) {
             });
 
         };
+        //test and question editable enable value change
         $scope.TestEditMode = function (index) {
             if ($scope.TestEditable[index] === true)
                 $scope.TestEditable[index] = false;
@@ -140,7 +141,7 @@ module.controller("QuizList", function ($scope, $http, $timeout) {
             $timeout(function () {
                 $http.get("/Admin/GetAllTests").then(function (data) {
                     $scope.Quiz = data.data;
-                    console.log($scope.Quiz);
+                    //console.log($scope.Quiz);
                 });
             },0);
         }

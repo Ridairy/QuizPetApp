@@ -19,8 +19,8 @@
                     $scope.QuestionVision[0] = true;
                     StartDateTime.setTime(Date.now());
                     TimerStart();
-                    console.log($scope.TestData);
-                    console.log(StartDateTime);
+                   // console.log($scope.TestData);
+                   // console.log(StartDateTime);
                 });
         };
         $scope.AddAnswer = function (Answer, index) {
@@ -62,10 +62,10 @@
                     else if ($scope.CurrResults.Score >= 50) $scope.CurrResults.msg = "not bad";
                     else if ($scope.CurrResults.Score > 0) $scope.CurrResults.msg = "bad";
                     else if ($scope.CurrResults.Score === 0) $scope.CurrResults.msg = "zero";
-                    console.log($scope.CurrResults);
+                    //console.log($scope.CurrResults);
                 });
             });
-            console.log(SendData);
+            //console.log(SendData);
             $scope.TestFinished = true;
             $scope.TestStart = false;
             
@@ -74,7 +74,7 @@
         function SelectedAnswers(answers) {
             var OnlySelected = [];
             l = 0;
-            console.log(answers);
+            //console.log(answers);
             for (i = 0; i <= answers.length-1; i++) {
                 if (answers[i].IsSelected === true) {
                     OnlySelected[l] = answers[i].Guid;
@@ -86,10 +86,10 @@
         }
 
 
-        //Timer area///
+        //Timer area//
         var AllTime, QuestionTime, tic,ChekAllTime,CheckQuestionTime;
         function TimerStart() {
-            console.log("Timer func");
+            //console.log("Timer func");
             if ($scope.TestData.TestTimeLimit.TotalMilliseconds === 0) {
                 CheckAllTime = false;
             }
@@ -127,7 +127,7 @@
             }
 
             if (tic) {
-                console.log(tic);
+                //console.log(tic);
                 $scope.Timer = {
                     'TestTime': TimerView(AllTime),
                     'QuestionTime': TimerView(QuestionTime)

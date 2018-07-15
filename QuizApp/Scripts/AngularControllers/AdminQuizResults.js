@@ -3,7 +3,7 @@
         function UpdateResults() {
             $http.get("/Admin/GetAllTestingResults").then(function (data) {
                 $scope.Results = data.data;
-                console.log(data.data);
+                //console.log(data.data);
             });
         }
 
