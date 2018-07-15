@@ -1,0 +1,62 @@
+﻿html, body {
+    margin: 0;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+    background-size: cover;
+    background: url(im1.jpg);
+}
+
+.testing-card {
+    margin-top: 100px;
+    background-color: grey;
+    opacity: 0.85;
+    border-radius: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+    .testing-card .answ {
+        margin-top: 50px;
+        padding: 40px;
+        background-color: darkgray;
+        border-radius: 10px;
+        opacity: 0.85;
+    }
+        .testing-card .answ ul {
+            list-style-type:none;
+        }
+        .testing-card h1{
+    padding-top:30px;
+}
+
+.btn-during-test {
+    color: white !important;
+    border:1px solid white;
+}
+
+.black-color {
+    color: black !important;
+    
+}
+.white-color {
+    color: white !important;
+}
+
+p {
+    font-size: larger;
+}
+
+.check-answer {
+   margin-left: 20px;
+}
+.result-page {
+    padding: 30px;
+    border: 3px solid slategrey;
+    border-radius: 20px;
+    background-color:darkgray;
+}   

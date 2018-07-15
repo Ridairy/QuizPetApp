@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Tests management";
+}
+
+
+<div ng-controller="QuizList">
+
+
+    <div class="panel panel-default" ng-repeat="item in Quiz">
+        <div class="panel-heading">
+            <h4>
+                <button type="button" class="btn btn-sm" ng-click="DeleteTest(item.Guid)"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-sm" ng-if="!TestEditable[$index]" ng-click="TestEditMode($index)"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button type="button" class="btn btn-sm" ng-if="TestEditable[$index]" ng-click="TestEditMode($index); UpdateTest(item)"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                <button type="button" class="btn btn-sm" ng-if="TestEditable[$index]" ng-click="TestEditMode($index)"><span class="glyphicon glyphicon-remove"></span></button>
+                <span ng-if="!TestEditable[$index]" contenteditable="false" class="noneditable-element">{{item.Name}} </span>
+                <input ng-model="item.Name" ng-if="TestEditable[$index]" class="editable-element" value="{{item.Name}}">
+
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div class="full-widths">
+                <span ng-if="!TestEditable[$index]">{{item.Description}}</span>
+                <input ng-model="item.Description" ng-if="TestEditable[$index]" class="editable-element full-width" value="{{item.Description}}">
+            </div>
+            <hr />
+            <div class="col-lg-4">
+                <span ng-if="!TestEditable[$index]">Limit time for test: {{item.TestTimeLimit}}</span>
+                <input class="form-control time-input" type="time" step="1" ng-model="item.TestTimeLimit" ng-if="TestEditable[$index]" value="{{item.TestTimeLimit}}" />
+            </div>
+            <div class="col-lg-4">
+                <span ng-if="!TestEditable[$index]">Limit time for question: {{item.QuestionTimeLimit}}</span>
+                <input class="form-control time-input" type="time" step="1" ng-model="item.QuestionTimeLimit" ng-if="TestEditable[$index]" value="{{item.QuestionTimeLimit}}" />
+            </div>
+
+        </div>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th class="col-lg-2 col-md-2">Guid</th>
+                <th class="col-lg-5 col-md-5">Instance</th>
+                <th class="col-lg-2 col-md-2">Hint</th>
+                <th class="col-lg-3 col-md-2" colspan="2">Answers</th>
+            </tr>
+            <tr ng-repeat="question in item.Questions">
+                <td>
+                    <p>
+                        <button type="button" class="btn btn-sm" ng-click="DeleteQuestion(question.Guid)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </p>
+                    <p>
+                        <button type="button" class="btn btn-sm" ng-if="!QuestionEditable[$index]" ng-click="QuestionEditMode($index)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </p>
+                    <p>
+                        <button type="button" class="btn btn-sm" ng-if="QuestionEditable[$index]" ng-click="QuestionEditMode($index);UpdateQuestion(question)">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                        </button>
+                    </p>
+                    <p>
+                        <button type="button" class="btn btn-sm" ng-if="QuestionEditable[$index]" ng-click="QuestionEditMode($index)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </p>
+                </td>
+
+                <td>
+                    <span>{{question.Guid}}</span>
+                </td>
+                <td>
+                    <span ng-if="!QuestionEditable[$index]">{{question.Instance}}</span>
+                    <input ng-model="question.Instance" ng-if="QuestionEditable[$index]" class="editable-element row full-width" value="{{quiestion.Instance}}" />
+                </td>
+                <td>
+                    <span ng-if="!QuestionEditable[$index]">{{question.Hint}}</span>
+                    <input ng-model="question.Hint" ng-if="QuestionEditable[$index]" class="editable-element row full-width" value="{{question.Hint}}" />
+                </td>
+                <td>
+                    <table>
+                        <tr ng-repeat="answer in question.Answers">
+                            <td><button type="button" class="btn btn-sm" ng-click="DeleteAnswer(answer.Guid)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                            <td>{{answer.Instance}}</td>
+                            <td><input type="checkbox" ng-model="answer.IsCorrect" disabled /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <input type="checkbox" class="form-control" ng-model="NewAnswer.IsCorrect" />
+                                    </div>
+                                    <div>
+                                        <input type="text" class="form-control" placeholder="Instance" ng-model="NewAnswer.Instance" />
+                                    </div>
+                                    <input type="button" class="form-control" ng-click="AddAnswer(question.Guid,NewAnswer)" value="Create answer" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" class="form-control" placeholder="Instance" ng-model="NewQuestion.Instance" />
+                </td>
+                <td colspan="2">
+                    <input type="text" class="form-control" placeholder="Hint" ng-model="NewQuestion.Hint" />
+                </td>
+                <td>
+                    <input type="button" class="form-control" value="Create question" ng-click="AddQuestion(item.Guid,NewQuestion)" />
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading has-bottom-margin">
+            <h4>Create new quiz</h4>
+        </div>
+        <div class="col-lg-12 text-center">
+            <div class="col-lg-4 has-bottom-margin">
+                <input class="form-control" type="text" placeholder="Name" ng-model="NewTest.Name" />
+            </div>
+            <div class="col-lg-8 has-bottom-margin">
+                <input class="form-control" type="text" placeholder="Description" ng-model="NewTest.Description" />
+            </div>
+            <div class="row">
+                <div class="has-bottom-margin InlineDiv">
+                    <label class="">Time limit for test:</label>
+                    <input class="form-control time-input" type="time" step="1" ng-model="NewTest.TestTimeLimit" />
+                </div>
+                <div class="has-bottom-margin InlineDiv">
+                    <label class="">Time limit for question:</label>
+                    <input class="form-control time-input" type="time" step="1" ng-model="NewTest.QuestionTimeLimit" />
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-lg-12 has-bottom-margin text-center">
+            <span class="text-danger" ng-show="NewTest.Error!=null">{{NewTest.Error}}</span>
+            <input class="form-control" type="button" value="Create quiz" ng-click="AddTest(NewTest)" />
+        </div>
+    </div>
+
+
+</div>
+
+
+

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Testing Urls management";
+}
+<div>
+    <div ng-controller="QuizUrl" class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <select ng-model="SelectedTest" class="form-control" ng-options="x.Name for x in Quizes"></select>
+            </div>
+            <div class="col-lg-4">
+                <input ng-model="NewTestUrl.Interviewee" type="text" placeholder="Interviewee..." class="form-control" />
+            </div>
+            <div class="input-group col-lg-4">
+                <label class="input-group-addon">Number of runs:</label>
+                <input ng-model="NewTestUrl.NumberOfRuns" min="0" type="number" class="form-control" />
+            </div>
+        </div>
+        <div style="margin-top:20px;padding-bottom:20px">
+            <div class="input-group col-lg-4">
+                <label class="input-group-addon">Allow start date:</label>
+                <input ng-model="NewTestUrl.AllowedStartDate" type="date" class="form-control" />
+            </div>
+            <div class="input-group col-lg-4">
+                <label class="input-group-addon">Allow end date:</label>
+                <input ng-model="NewTestUrl.AllowedEndDate" type="date" class="form-control" />
+            </div>
+            <div class="col-lg-4 text-center">
+                <button type="button" class="form-control" ng-click="AddNewUrl(SelectedTest,NewTestUrl)">Create url</button>
+                <span ng-show="NewTestUrl.Error!=null" class=" text-danger">{{NewTestUrl.Error}}</span>
+            </div>
+        </div>
+        <hr />
+
+
+        <div>
+            <table class="table table-striped has-padding">
+                <tr>
+                    <th></th>
+                    <th>Url</th>
+                    <th>Test name</th>
+                    <th>Interviewee</th>
+                    <th>Runs</th>
+                    <th>AllowedStartDate - AllowedEndDate</th>
+
+                </tr>
+                <tr ng-repeat="item in QuizUrls">
+                    <td>
+                        <button type="button" class="btn btn-sm" ng-click="DeleteUrl(item.Guid)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                    <td><a href='/Test/{{item.Guid}}'>{{item.Guid}}</a></td>
+                    <td>{{item.TestName}}</td>
+                    <td>{{item.Interviewee}}</td>
+                    <td>{{item.NumberOfRuns}}</td>
+                    <td>{{item.AllowedStartDate}} - {{item.AllowedEndDate}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

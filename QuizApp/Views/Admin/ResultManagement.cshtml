@@ -1,0 +1,33 @@
+﻿
+
+@{
+    ViewBag.Title = "ResultManagement";
+    
+}
+
+<div ng-controller="QuizResults">
+    <div class="container">
+        <table class="table table-hover">
+            <tr>
+                <th></th>
+                <th>Guid</th>
+                <th>Test name</th>
+                <th>Interviewee</th>
+                <th>Question stop</th>
+                <th>Score in %</th>
+                <th>Duration</th>
+                <th>Start - End</th>
+            </tr>
+            <tr ng-repeat="i in Results">
+                <td><button class="btn" ng-click="DelResult(i.Guid,$index)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                <td>{{i.Guid}}</td>
+                <td>{{i.TestName}}</td>
+                <td>{{i.Interviewee}}</td>
+                <td>{{i.QuestionTried}}</td>
+                <td>{{i.Score*100}}</td>
+                <td>{{i.Duration}}</td>
+                <td>{{i.TestingStartDateTime}} - {{i.TestingEndDateTime}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

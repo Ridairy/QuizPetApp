@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html ng-app="QuizApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Quiz Application</title>
+    @*<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">*@
+    @Styles.Render("~/Content/quiz-css")
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/angular-ui")
+    @Scripts.Render("~/bundles/common-dep")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/material-bootstrap-js")
+    @Scripts.Render("~/bundles/quiz-angular-controllers")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

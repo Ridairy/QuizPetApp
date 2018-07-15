@@ -1,0 +1,80 @@
+﻿@model  QuizApp.ViewModel.Managing.TestingUrlViewModel  
+@{
+    ViewBag.Title = "Quiz";
+    Layout = "~/Views/Shared/_QuizLayout.cshtml";
+}
+
+<div ng-controller="QuizPassing" >
+    <div class="col-lg-12 testing-card">
+        <div ng-hide="TestStart || TestFinished">
+            <h1 class="text-center">@Html.DisplayTextFor(m => m.TestName)</h1>
+            <hr />
+            <div>
+                <p>Guid: @Html.DisplayFor(m => m.Guid)</p>
+            </div>
+            <div>
+                <p>
+                    <span >Interviewee: </span>
+                    @if (String.IsNullOrEmpty(Model.Interviewee))
+                    {
+                            <input style="display:inline; max-width:200px;color:white" class="form-control" type="text" ng-model="Start.Interviewee" required />
+                    }
+                    else
+                    {
+                            <span>@Model.Interviewee</span>                          
+                    }
+               </p>
+            </div>
+            <div>
+                <p>Number of runs: @Html.DisplayFor(m => m.NumberOfRuns)</p>
+            </div>
+            <div>
+                <p>Passing date: @Html.DisplayFor(m => m.AllowedStartDate, new { @format="DD-MM-YYYY"}) - @Html.DisplayFor(m => m.AllowedEndDate, new { @format = "DD-MM-YYYY"})</p>
+            </div>
+            <hr />
+            <p>
+            <p>@Html.DisplayFor(m => m.UrlInstance)</p>
+            <div class="text-center">
+                <button ng-click="Start(Start.Interviewee,'@Model.Guid')" class="btn btn-during-test">Start</button>
+            </div>
+        </div>
+        <div ng-show="TestStart" >
+            <div ng-repeat="question in TestData.Questions" ng-show="QuestionVision[$index]">
+                <div class="col-lg-6">
+                    <h3 class="text-center">Question: {{$index+1}} out of {{TestData.Questions.length}}</h3>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="text-center">Times left: {{Timer.TestTime}}</h3>
+                </div>
+                <hr />
+                <div class="answ">
+                    <p>{{question.Instance}}</p>
+                    <hr />
+                    <ul class="">
+                        <li ng-repeat="answer in question.Answers" class="">
+                            <input type="checkbox" class="" ng-model="answer.IsSelected"/><label class="black-color check-answer">{{answer.Instance}} </label> 
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="text-right">
+                    <h4>Question time: {{Timer.QuestionTime}}</h4>
+                    <button class="btn btn-during-test" ng-show="!$last" ng-click="AddAnswer(question.Answers,$index)" id="Next{{$index}}">Next question</button>
+                    <button class="btn btn-during-test" ng-show="$last" ng-click="FinishTest(question.Answers,$index)" id="FinishButton">Finish test</button>
+                </div>
+            </div>
+        </div>
+        <div ng-show="TestFinished">
+            <div class="text-center result-page">
+                <h2>{{CurrResults.Interviewee}}, your results is {{CurrResults.msg}}</h2>
+                <hr />
+                <p>You gave the right answer on {{CurrResults.Score}}%</p>
+                <p></p>
+                <h2>Good luck and thank you for passing this test.</h2>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
